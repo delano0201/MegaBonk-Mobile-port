@@ -1,6 +1,4 @@
 
-
-````markdown
 <div align="center">
 
 # 🔨 MegaBonk Mobile Port
@@ -148,4 +146,3 @@ If you enjoy this project, please consider supporting the **original MegaBonk de
 *Expect bugs. Expect weird stuff. If your phone catches fire, please don't blame the Goblin.* 🔥
 
 </div>
-````
