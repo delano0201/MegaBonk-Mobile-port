@@ -142,6 +142,6 @@ If you enjoy this project, please consider supporting the **original MegaBonk de
 
 **MegaBonk Mobile Port — Early Release**
 
-*Expect bugs. Expect weird stuff. If your phone catches fire, please don't blame the Goblin.* 🔥
+*Expect bugs. Expect weird stuff. If your phone catches fire, please don't throw ur phone at the cat if it doesn't work.*
 
 </div>
