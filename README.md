@@ -96,13 +96,15 @@ The on-screen layout is designed around:
 ## ⚠️ Important Legal Notice
 
 > [!IMPORTANT]
-> **This project does provide or distribute a copy of MegaBonk.**
+> **This project includes files from MegaBonk. You must legally own MegaBonk to use this project.**
 >
-> - Only use this project if you **legally own MegaBonk**
-> - Piracy directly hurts independent developers and smaller studios — please **support the original game and its developer, Vedinad**, if you enjoy MegaBonk
+> - Do not use this project to obtain MegaBonk **without purchasing it**
+> - Do not redistribute the included game files separately.
 > - Do not redistribute the included game files separately or use this project as a way to obtain MegaBonk without purchasing it.
->
-> **You are responsible for obtaining and using the game legally, You can still download this while not owning the game but u will hurt the developer.**
+> - Please support the original game and its developer, Vedinad.
+> **You are responsible for ensuring that your use of this project complies with applicable law.**
+> - This project is not affiliated with, endorsed by, or sponsored by Vedinad.
+
 
 ---
 
