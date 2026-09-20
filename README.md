@@ -10,7 +10,6 @@ Native-feeling touch controls • Performance optimizations • Mobile-focused e
 ![Platform](https://img.shields.io/badge/Platform-Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
 ![Status](https://img.shields.io/badge/Status-Early_Release-F7A41D?style=for-the-badge)
 ![Type](https://img.shields.io/badge/Type-Community_Project-2E7DF7?style=for-the-badge)
-![Requires](https://img.shields.io/badge/Requires-Legal_Copy_of_MegaBonk-E01E1E?style=for-the-badge)
 
 <!-- Optional: add a banner or gameplay screenshot here
 ![Gameplay](screenshots/gameplay.png)
