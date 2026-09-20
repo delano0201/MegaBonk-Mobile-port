@@ -103,6 +103,7 @@ The on-screen layout is designed around:
 >
 > - Only use this project if you **legally own MegaBonk**
 > - Piracy directly hurts independent developers and smaller studios — please **support the original game and its developer, Vedinad**, if you enjoy MegaBonk
+> - Do not redistribute the included game files separately or use this project as a way to obtain MegaBonk without purchasing it.
 >
 > **You are responsible for obtaining and using the game legally, You can still download this while not owning the game but u will hurt the developer.**
 
