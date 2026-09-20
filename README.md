@@ -99,13 +99,12 @@ The on-screen layout is designed around:
 ## ⚠️ Important Legal Notice
 
 > [!IMPORTANT]
-> **This project does not provide or distribute a copy of MegaBonk.**
+> **This project does provide or distribute a copy of MegaBonk.**
 >
 > - Only use this project if you **legally own MegaBonk**
-> - Software piracy, unauthorized redistribution, and sharing copyrighted copies are **not supported**
 > - Piracy directly hurts independent developers and smaller studios — please **support the original game and its developer, Vedinad**, if you enjoy MegaBonk
 >
-> **You are responsible for obtaining and using the game legally.**
+> **You are responsible for obtaining and using the game legally, You can still download this while not owning the game but u will hurt the developer.**
 
 ---
 
