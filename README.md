@@ -18,7 +18,7 @@ Native-feeling touch controls • Performance optimizations • Mobile-focused e
 </div>
 
 > [!WARNING]
-> **Early Release** — This is the first public release. Expect bugs, crashes, graphical issues, performance problems, and device-specific quirks. Your experience can vary significantly depending on your phone.
+> **Early Release** — This is the first public release. Expect bugs, crashes, graphical issues, performance problems, and device-specific quirks. Your experience can vary significantly depending on your phone, Source code wil be released later.
 
 ---
 
