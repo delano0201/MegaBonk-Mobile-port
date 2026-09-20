@@ -103,7 +103,6 @@ The on-screen layout is designed around:
 > - Do not redistribute the included game files separately or use this project as a way to obtain MegaBonk without purchasing it.
 > - Please support the original game and its developer, Vedinad.
 > **You are responsible for ensuring that your use of this project complies with applicable law.**
-> - This project is not affiliated with, endorsed by, or sponsored by Vedinad.
 
 
 ---
@@ -112,7 +111,7 @@ The on-screen layout is designed around:
 
 This is a **community-made project** and is not officially affiliated with, endorsed by, or sponsored by Vedinad.
 
-Because this is the first release, things can and will break. If you encounter a bug, performance issue, crash, or device compatibility problem, please **[report it on the GitHub Issues page](../../issues)** with as much information as possible.
+Because this is not a native port, things can and will break. If you encounter a bug, performance issue, crash, or device compatibility problem, please **[report it on the GitHub Issues page](../../issues)** with as much information as possible.
 
 <details>
 <summary>🐞 <b>What to include in a bug report</b></summary>
