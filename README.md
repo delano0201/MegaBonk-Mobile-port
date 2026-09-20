@@ -1,7 +1,7 @@
 
 <div align="center">
 
-# 🔨 MegaBonk Mobile Port
+#  MegaBonk Mobile Port
 
 ### A community-made mobile port of **MegaBonk** — the full PC experience, on Android.
 
@@ -22,15 +22,15 @@ Native-feeling touch controls • Performance optimizations • Mobile-focused e
 
 ---
 
-## ✨ Features
+##  Features
 
-- 🎮 **Full MegaBonk gameplay** on mobile
-- 📱 **Touch controls** designed specifically for phones
-- 🕹️ **Virtual controls** for movement and gameplay
-- ⚡ **Mobile-oriented performance optimizations**
-- 🎨 **Graphics & rendering optimizations** where possible
-- 🔧 **Device-specific performance tuning**
-- 🖥️ **Runs without requiring a desktop PC**
+-  **Full MegaBonk gameplay** on mobile
+-  **Touch controls** designed specifically for phones
+-  **Virtual controls** for movement and gameplay
+-  **Mobile-oriented performance optimizations**
+-  **Graphics & rendering optimizations** where possible
+-  **Device-specific performance tuning**
+-  **Runs without requiring a desktop PC**
 
 > [!NOTE]
 > 🔜 More optimization work is planned, and **mod support** is planned for a future release.
@@ -39,7 +39,7 @@ Native-feeling touch controls • Performance optimizations • Mobile-focused e
 
 ---
 
-## 📊 Performance & Device Requirements
+##  Performance & Device Requirements
 
 Performance depends heavily on your device's **CPU, GPU, RAM, Android version, and thermal limits**.
 
@@ -67,7 +67,7 @@ Performance depends heavily on your device's **CPU, GPU, RAM, Android version, a
 
 ---
 
-## 🛠️ Development Status
+##  Development Status
 
 | ✅ Currently Available | 🔜 Planned |
 |---|---|
@@ -80,19 +80,16 @@ Performance depends heavily on your device's **CPU, GPU, RAM, Android version, a
 
 ---
 
-## 🎮 Controls
+##  Controls
 
 The mobile version uses **touchscreen controls** to replicate the original PC input.
 
 The on-screen layout is designed around:
 
-- 🏃 Movement
-- ⚔️ Gameplay actions
-- 📋 Menus
-- ⌨️ Other keyboard/mouse inputs required by the game
-
-> [!TIP]
-> More customization for the touch layout may arrive in future versions.
+-  Movement
+-  Gameplay actions
+-  Menus
+-  Other keyboard/mouse inputs required by the game
 
 ---
 
@@ -109,7 +106,7 @@ The on-screen layout is designed around:
 
 ---
 
-## 📌 Disclaimer
+##  Disclaimer
 
 This is a **community-made project** and is not officially affiliated with, endorsed by, or sponsored by Vedinad.
 
@@ -118,13 +115,13 @@ Because this is the first release, things can and will break. If you encounter a
 <details>
 <summary>🐞 <b>What to include in a bug report</b></summary>
 
-- 📱 Phone model
-- 🤖 Android version
-- 🧠 RAM
-- 🔓 Whether the device is rooted
-- 💥 What happened
-- 🔁 Steps to reproduce the issue
-- 📄 Logs / crash reports (when available)
+-  Phone model
+-  Android version
+-  RAM
+-  Whether the device is rooted
+-  What happened
+-  Steps to reproduce the issue
+-  Logs / crash reports (when available)
 
 </details>
 
