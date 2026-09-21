@@ -3,7 +3,6 @@
 <img src="https://img.shields.io/badge/Android-8.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
 <img src="https://img.shields.io/badge/Engine-Wine_9_·_Box64-6E41A0?style=for-the-badge" alt="Wine + Box64">
 <img src="https://img.shields.io/badge/Mods-MelonLoader_0.6.6-F7A41D?style=for-the-badge" alt="MelonLoader">
-<img src="https://img.shields.io/badge/Game_Files-Ships_NONE-red?style=for-the-badge" alt="No game files">
 
 # MegaBonk Mobile Port
 
