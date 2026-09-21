@@ -16,8 +16,7 @@
 </div>
 
 > [!IMPORTANT]
-> **This repository contains no game content.** You must import a ZIP of your own
-> legally-owned MegaBonk PC copy. See the [Legal Notice](#%EF%B8%8F-legal-notice).
+> THe fucking code corrupted before i wanted to push it i have to recode everything please be patient thanks
 
 ---
 
