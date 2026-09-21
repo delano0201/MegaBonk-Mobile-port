@@ -16,7 +16,7 @@
 </div>
 
 > [!IMPORTANT]
-> THe fucking code corrupted before i wanted to push it i have to recode everything please be patient thanks
+> The fucking code corrupted before i wanted to push it i have to recode everything please be patient thanks
 
 ---
 
