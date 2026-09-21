@@ -36,7 +36,7 @@
 
 ---
 
-## 🤔 What is this?
+##  What is this?
 
 MegaBonk is a **Windows x86_64** game (Unity, IL2CPP). Running it on a phone normally
 means hand-tuning a Wine container, drive mappings, screen sizes, env vars, CPU
@@ -47,23 +47,23 @@ This project does all of it for you:
 
 ```mermaid
 flowchart LR
-    A[📱 Import your<br>MegaBonk ZIP] --> B[🧠 Detect hardware<br>SoC · GPU · RAM · Hz]
-    B --> C[⚙️ Auto-configure<br>container · profile · controls]
-    C --> D[🧩 Deploy mod stack<br>MelonLoader + runtime]
-    D --> E[▶️ Play]
+    A[📱 Import your<br>MegaBonk ZIP] --> B[ Detect hardware<br>SoC · GPU · RAM · Hz]
+    B --> C[ Auto-configure<br>container · profile · controls]
+    C --> D[ Deploy mod stack<br>MelonLoader + runtime]
+    D --> E[ Play]
 ```
 
 The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 
 ---
 
-## ✨ Features
+##  Features
 
 <table>
 <tr>
 <td width="50%" valign="top">
 
-### 🎮 Game Import
+###  Game Import
 
 - **Bring-your-own game** — the APK ships *zero* game files
 - **Smart ZIP importer** — finds the game root at any folder depth, auto-detects
@@ -75,7 +75,7 @@ The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 </td>
 <td width="50%" valign="top">
 
-### 🧠 Automatic Device Tuning
+###  Automatic Device Tuning
 
 - Reads **SoC, GPU, core count, RAM, refresh rate** → assigns a tier
   (HIGH / UPPER-MID / MID / LOW)
@@ -89,7 +89,7 @@ The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 <tr>
 <td width="50%" valign="top">
 
-### 🧩 Mod Support
+###  Mod Support
 
 - **MelonLoader 0.6.6** (Apache-2.0) deployed automatically
 - **MegabonkTweaks** bundled: vsync off · 40 m shadows · MSAA off
@@ -99,7 +99,7 @@ The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 </td>
 <td width="50%" valign="top">
 
-### 🛠️ Performance Engineering
+###  Performance Engineering
 
 - **Box64 dynarec cache** persists across launches — JIT cost paid once
 - **boot.config patching** — Unity gfx-jobs disabled (reversible, backed up)
@@ -117,7 +117,7 @@ The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 
 ---
 
-## 🚀 Quick Start
+##  Quick Start
 
 1. **Install the APK** and open the launcher
 2. Tap <kbd>Import Game ZIP</kbd> and pick the ZIP of your legally-owned MegaBonk PC copy
@@ -129,7 +129,7 @@ The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 > straight to the game.
 
 <details>
-<summary><b>📋 Requirements</b></summary>
+<summary><b> Requirements</b></summary>
 
 - Android 8.0 or newer
 - 64-bit ARM device (`arm64-v8a`)
@@ -140,7 +140,7 @@ The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 
 ---
 
-## 🧠 Automatic Device Tuning
+##  Automatic Device Tuning
 
 | Tier | Example hardware | Resolution budget | FPS cap | Driver | Box64 |
 |:---:|---|:---:|:---:|:---:|:---:|
@@ -155,7 +155,7 @@ The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 
 ---
 
-## 🧩 Mod Support
+##  Mod Support
 
 Open the <kbd>Mods</kbd> button on the launcher:
 
@@ -174,7 +174,7 @@ Melon Assembly loaded: '.\Mods\MegabonkTweaks.dll'
 ```
 
 <details>
-<summary><b>🔬 Why mods don't work out of the box (and the four fixes)</b></summary>
+<summary><b> Why mods don't work out of the box (and the four fixes)</b></summary>
 
 1. **Wine's builtin `version.dll` shadows the proxy** → `native,builtin`
    registry DllOverride for the doorstop proxy
@@ -194,7 +194,7 @@ Full details, tool versions, and the uppercase-SHA-512 gotcha in
 
 ---
 
-## ⚡ Performance Engineering
+##  Performance Engineering
 
 - **Dynarec cache persistence** — `BOX64_DYNAREC_SAVEFILE` points into app
   storage; translated code blocks survive across launches
@@ -211,7 +211,7 @@ python3 tools/analyze_frames.py tools/reports/<report>.txt
 
 ---
 
-## 📁 Repository Layout
+##  Repository Layout
 
 ```
 app/src/main/java/com/winlator/cmod/megabonk/
@@ -227,7 +227,7 @@ app/src/main/assets/               # MelonLoader, portable .NET, pregen interop,
 
 ---
 
-## 🔧 Building
+##  Building
 
 Requirements: **Android Studio** (SDK 34 + NDK) and **Java 17**.
 
@@ -243,7 +243,7 @@ Requirements: **Android Studio** (SDK 34 + NDK) and **Java 17**.
 
 ---
 
-## ⚠️ Legal Notice
+##  Legal Notice
 
 > [!IMPORTANT]
 > **You must legally own MegaBonk to use this project.**
@@ -256,7 +256,7 @@ Requirements: **Android Studio** (SDK 34 + NDK) and **Java 17**.
 
 ---
 
-## 🙏 Credits
+##  Credits
 
 | Project | Role |
 |---|---|
