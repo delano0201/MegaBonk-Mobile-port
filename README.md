@@ -1,149 +1,277 @@
+<div align="center">
 
+<img src="https://img.shields.io/badge/Android-8.0%2B-3DDC84?style=for-the-badge&logo=android&logoColor=white" alt="Android">
+<img src="https://img.shields.io/badge/Engine-Wine_9_·_Box64-6E41A0?style=for-the-badge" alt="Wine + Box64">
+<img src="https://img.shields.io/badge/Mods-MelonLoader_0.6.6-F7A41D?style=for-the-badge" alt="MelonLoader">
+<img src="https://img.shields.io/badge/Game_Files-Ships_NONE-red?style=for-the-badge" alt="No game files">
 
-<p align="center">
-  <img src="logo.png" alt="Winlator Bionic" width="600">
-</p>
+# MegaBonk Mobile Port
 
-# Winlator Bionic
+### The full PC experience of **MegaBonk** — on Android.
 
-Winlator is an Android application that lets you run Windows (x86\_64) applications with Wine. It supports standard `x86_64` containers using Box86/Box64, as well as `Arm64EC` containers which utilize FEXCore (for 64/32-bit) or an optional WowBox64 (for 32-bit).
+*One-tap setup · Adaptive device tuning · Full MelonLoader mod support*
 
-This is a fork of the **Winlator Bionic** project by [Pipetto-crypto](https://github.com/Pipetto-crypto/winlator), continued from [StevenMXZ's Winlator-Ludashi 3.0](https://github.com/StevenMXZ/Winlator-Ludashi).
+**A specialized Android launcher that runs the PC version of [MegaBonk](https://store.steampowered.com/app/3229250/Megabonk/)**
+**through Wine + Box64 — with everything pre-configured, from the Wine container to the mod loader.**
 
-and backup [Ludashi-backup](https://github.com/StevenMX-backup/Ludashi-Backup).
+</div>
 
-## ✨ Why try this fork?
+> [!IMPORTANT]
+> **This repository contains no game content.** You must import a ZIP of your own
+> legally-owned MegaBonk PC copy. See the [Legal Notice](#%EF%B8%8F-legal-notice).
 
-The headline feature is **Direct Android Compositing (DAC)** — a new Vulkan present path that routes frames directly from DXVK to SurfaceFlinger, skipping the X11 server entirely for Vulkan-rendered games. What you actually feel:
+---
 
-- 🎮 **Lower input latency.** One fewer compositor stage between the GPU and the display. Controls feel more responsive in fast-paced games (Broforce, Hollow Knight, GTA IV tested).
-- 🌊 **Smoother motion.** Vsync-aligned absolute-time sleeps replaced the previous render-pacing model. The historical "Performance mode jitter" on Vulkan games is largely gone on tested hardware.
-- 🔋 **Less GPU work in the compositor.** On overlay-capable devices (most Adreno phones), SurfaceFlinger picks the hardware overlay path — your game's frame goes to the display panel without any extra GPU compositing pass.
-- 🩹 **FIFO Vulkan games that froze in Performance mode now work.** Vampire Survivors, Hollow Knight, GTA IV all run cleanly (fixes a slot-index mismatch in the trojan-blit pipeline).
-- 🔓 **Lock/unlock no longer leaves a black screen.** A long-standing lifecycle bug where the compositor stayed detached after device sleep is fixed.
-- 🎚️ **Per-game pipeline picker.** A new dropdown in Container Settings and per-shortcut Settings lets you choose **Quality (Direct-Render)**, **Performance (Trojan-Blit)**, or **Native (X11)** per game. If a title misbehaves under DAC, switch to Native in five seconds — no uninstall, no container changes.
-- ⏪ **Guaranteed upstream fallback.** The Native (X11) option is byte-for-byte the same code path as upstream Ludashi 3.0. You can never regress below upstream — if anything works there, you can always reach it here through the dropdown.
+## 📖 Table of Contents
 
-**Safe to try.** If you're already running upstream Ludashi 3.0, your save data and Wine prefix are unaffected — the new dropdown defaults to Quality on existing containers but you can flip any individual shortcut back to Native at any time. Worst case, you set everything to Native and you're back to upstream behavior.
+- [What is this?](#-what-is-this)
+- [Features](#-features)
+- [Quick Start](#-quick-start)
+- [Automatic Device Tuning](#-automatic-device-tuning)
+- [Mod Support](#-mod-support)
+- [Performance Engineering](#-performance-engineering)
+- [Repository Layout](#-repository-layout)
+- [Building](#-building)
+- [Legal Notice](#%EF%B8%8F-legal-notice)
+- [Credits](#-credits)
 
-## ⚠️ Experimental — please read
+---
 
-This fork (`winlator-ludashi-plus`) is my **first contribution to the Winlator project** and **my first Android development project, period**. The Direct Android Compositing pipeline added here is non-trivial low-level work (Vulkan layer, AHardwareBuffer, SurfaceControl, IPC), and while every change has been verified end-to-end on my hardware, much of it is genuinely experimental.
+## 🤔 What is this?
 
-What this means in practice:
+MegaBonk is a **Windows x86_64** game (Unity, IL2CPP). Running it on a phone normally
+means hand-tuning a Wine container, drive mappings, screen sizes, env vars, CPU
+affinity, DX wrappers — and even then, **mods simply don't load** without
+Wine-specific surgery (see [WHATS-NEW.md](WHATS-NEW.md) for all four fixes).
 
-- **Game compatibility may vary.** Vulkan games that work on upstream Ludashi 3.0 should still work here, but the DAC pipeline introduces a new code path. If a game misbehaves under the default *Quality (Direct-Render)* mode, try *Performance (Trojan-Blit)*, and if that still fails, switch to *Native (X11)* to fall back to upstream behavior. The dropdown is designed exactly for this.
-- **Bugs are likely.** Especially on hardware different from mine (Odin 2 Portal — Adreno 740, Android 13). Please open issues with logcat snippets and the Graphics Pipeline setting you were using.
-- **Performance is hardware-dependent.** Quality mode squeezes out the lowest latency on overlay-capable devices; Performance mode can be steadier on weaker GPUs. Try both per-game via the per-shortcut setting.
-- **Not a stable release.** Treat as a beta. Save game progress before testing on titles you care about.
+This project does all of it for you:
 
-If you hit something that worked on upstream Ludashi 3.0 but doesn't here, that's a regression and I want to know — open an issue. If you hit something that didn't work upstream either, that's likely a Wine/Proton/game compatibility limit and the *Native (X11)* dropdown option will give you the same behavior as upstream.
-## APK Build Explanations
+```mermaid
+flowchart LR
+    A[📱 Import your<br>MegaBonk ZIP] --> B[🧠 Detect hardware<br>SoC · GPU · RAM · Hz]
+    B --> C[⚙️ Auto-configure<br>container · profile · controls]
+    C --> D[🧩 Deploy mod stack<br>MelonLoader + runtime]
+    D --> E[▶️ Play]
+```
 
-### what is Ludashi?
+The result is a **one-tap experience**: import your game ZIP once, tap `Play`.
 
-The Ludashi Build is functionally identical to the standard Bionic app, but the package name has been renamed to mimic Ludashi, a popular benchmark app. Some Android phones — especially Xiaomi devices — may automatically enable performance mode when such apps are detected, potentially reducing throttling and boosting performance slightly.
+---
 
-### Dev-Vanilla Build
+## ✨ Features
 
-This is the standard, unmodified build. It uses the original package name, which allows it to be installed alongside other popular Winlator forks (like the coffincolors version) without any package conflicts.
+<table>
+<tr>
+<td width="50%" valign="top">
 
-### RedMagic Build
+### 🎮 Game Import
 
-This build mimics the package name of Genshin Impact. This is specifically designed for RedMagic devices, as the phone's software may detect this package name to enable hardware-specific gaming enhancements, such as built-in frame generation (framegen). Using this build may unlock these features and improve performance on supported RedMagic phones.
+- **Bring-your-own game** — the APK ships *zero* game files
+- **Smart ZIP importer** — finds the game root at any folder depth, auto-detects
+  the `.exe` (even renamed), validates the `*_Data` directory
+- Skips redistributable junk (`_commonredist`, `redist`, `__MACOSX`)
+- Zip-slip path-traversal protection
+- Import button auto-hides once the game is installed
 
-# Installation
+</td>
+<td width="50%" valign="top">
 
-1.  Download and install the latest APK from this repository's [Releases section](https://github.com/StevenMXZ/Winlator-Ludashi/releases) (choose your preferred build: `dev-vanilla`, `ludashi`, or `redmagic`).
-2.  Launch the app and wait for the installation process to finish.
+### 🧠 Automatic Device Tuning
 
-# Bring your own game files (Megabonk launcher)
+- Reads **SoC, GPU, core count, RAM, refresh rate** → assigns a tier
+  (HIGH / UPPER-MID / MID / LOW)
+- **Aspect-matched resolutions** — fullscreen resolution derived from a
+  per-tier pixel budget, preserving your exact screen ratio (no letterbox box)
+- Auto-selects GPU driver, Box64 preset, FPS cap, CPU core pinning
+- Everything overridable in <kbd>Game Settings</kbd>
 
-This project **does not include or distribute any Megabonk game files**. You must supply the game yourself from a copy you legally own (e.g. your Steam/GOG install):
+</td>
+</tr>
+<tr>
+<td width="50%" valign="top">
 
-1. Zip the contents of your Megabonk install folder (the folder that contains `Megabonk.exe`, `UnityPlayer.dll`, `GameAssembly.dll` and `Megabonk_Data`) into a `.zip`.
-2. On the launcher, tap **Import Game ZIP** and pick that zip — any folder layout works: the app auto-detects the game executable (and its matching `*_Data` folder) at any depth inside the archive and extracts just the game.
-3. Wait for the import to finish, then hit **PLAY**.
+### 🧩 Mod Support
 
-Installer/redistributable folders (`_CommonRedist`, etc.) inside the zip are ignored. To re-import a different version, just tap **Import Game ZIP** again — the previous import is replaced (saves are backed up and restored automatically).
+- **MelonLoader 0.6.6** (Apache-2.0) deployed automatically
+- **MegabonkTweaks** bundled: vsync off · 40 m shadows · MSAA off
+- **Mods manager UI** — import your own `.dll` mods, list, remove
+- Works **fully offline** — no first-run downloads needed
 
-# Graphics Pipeline (Direct Android Compositing)
+</td>
+<td width="50%" valign="top">
 
-This fork adds **Direct Android Compositing (DAC)** — a zero-copy Vulkan
-present path that routes `DXVK → AHardwareBuffer → SurfaceControl → SurfaceFlinger`
-instead of going through Wine's X11 server. The result is lower latency
-and smoother motion for Vulkan-rendered games.
+### 🛠️ Performance Engineering
 
-A **Graphics Pipeline** dropdown is available in both Container Settings
-and per-shortcut Settings (Shortcuts → ⋮ → Settings → Graphics Pipeline)
-with three options:
+- **Box64 dynarec cache** persists across launches — JIT cost paid once
+- **boot.config patching** — Unity gfx-jobs disabled (reversible, backed up)
+- **Benchmark harness** in `tools/` — frame times, 1%/0.1% lows, thermal data
+- **Big-core pinning** — game threads stay on the fast cluster
 
-| Option | What it does | When to pick it |
-|---|---|---|
-| **Quality (Direct-Render)** *(default)* | DXVK renders directly into AHardwareBuffers, no intermediate copy. SurfaceFlinger composites via hardware overlay. | Default for all Vulkan games. Lowest latency, smoothest motion. |
-| **Performance (Trojan-Blit)** | DXVK renders into a regular device-local image; layer blits it to the AHB before display. | Compatibility fallback if Quality has artifacts on a specific game; sometimes yields slightly higher steady FPS on shader-heavy titles. |
-| **Native (X11)** | DAC layer is disabled entirely (`DISABLE_AHB_LAYER=1`). Game runs through the original Wine-X11 path. | Use for games that misbehave under DAC, or to compare against upstream Winlator behavior. |
+</td>
+</tr>
+</table>
 
-The shortcut-level setting wins over the container-level setting when set,
-so you can keep most games on Quality and switch individual problem
-titles to Performance or Native without changing the container default.
+> [!TIP]
+> Every optimization in this project was **measured, not guessed** — the
+> benchmark harness in [`tools/`](tools/README.md) captures SurfaceFlinger
+> frame-latency data before and after each change.
 
-### Where to find it
+---
 
-**Container-wide default** — Container Settings → Edit Container → *Graphics Pipeline*:
+## 🚀 Quick Start
 
-<p align="center">
-  <img src="docs/screenshots/graphics-pipeline-container.png" alt="Graphics Pipeline dropdown in Container Settings" width="800">
-</p>
+1. **Install the APK** and open the launcher
+2. Tap <kbd>Import Game ZIP</kbd> and pick the ZIP of your legally-owned MegaBonk PC copy
+3. The port configures *everything* — container, shortcut, touch layout, performance profile
+4. Tap <kbd>PLAY</kbd> — that's it
 
-**Per-game override** — Shortcuts → ⋮ on the game → Settings → *Graphics Pipeline*:
+> [!NOTE]
+> First launch deploys the mod stack automatically. Subsequent launches skip
+> straight to the game.
 
-<p align="center">
-  <img src="docs/screenshots/graphics-pipeline-shortcut.png" alt="Graphics Pipeline dropdown in Shortcut Settings" width="800">
-</p>
+<details>
+<summary><b>📋 Requirements</b></summary>
 
-# Useful Tips
+- Android 8.0 or newer
+- 64-bit ARM device (`arm64-v8a`)
+- Your legally-owned copy of MegaBonk (PC version) as a ZIP
+- Enough free storage for the extracted game files
 
-  - Here is a tutorial from ZeroKimchi channel on how to use Winlator Bionic:
-    https://youtu.be/EJDWZUGF9sk?si=e3Z-DdmMJSYKduWz
-  - If you are using an `x86_64` container and experiencing performance issues, try changing the Box86/Box64 preset to **Performance** in Container Settings -\> Advanced Tab.
-  - If you are using an `Arm64EC` container, try swapping between different FEXCore versions (2505,2507 etc) in the container settings for better compatibility or performance.
-  - For applications that use .NET Framework, try installing Wine Mono found in Start Menu -\> System Tools.
-  - If some older games don't open, try adding the environment variable MESA\_EXTENSION\_MAX\_YEAR=2003 in Container Settings -\> Environment Variables.
-  - Try running the games using the shortcut on the Winlator home screen, there you can define individual settings for each game.
-  - To speed up the installers, try changing the Box86/Box64 preset to Intermediate in Container Settings -\> Advanced Tab.
-  - If a Vulkan game freezes or crashes, try switching the **Graphics Pipeline** option (Quality → Performance → Native) in the shortcut settings before assuming Wine/Proton compatibility is the problem.
+</details>
 
-# Additional Components & Updates
+---
 
-You can find updated components (known as `wcps`) to improve compatibility and performance, as well as new drivers, at the links below:
+## 🧠 Automatic Device Tuning
 
-  - **Winlator Components (FEXCore, Box64/Box86, DXVK, etc.):**
-      - [StevenMXZ's Winlator-Contents Repository](https://github.com/StevenMXZ/Winlator-Contents)
-  - **Adreno GPU Drivers (Turnip):**
-      - [Kimchi's AdrenoToolsDrivers Releases](https://www.google.com/search?q=https://github.com/K11MCH1/AdrenoToolsDrivers/releases)
+| Tier | Example hardware | Resolution budget | FPS cap | Driver | Box64 |
+|:---:|---|:---:|:---:|:---:|:---:|
+| 🟢 **HIGH** | SD 8 Gen 2+, Adreno 740+ | 1.4 M px | uncapped | auto | PERFORMANCE |
+| 🟡 **UPPER-MID** | SD 6/7 Gen, Adreno 710 | 640 K px | 45 | auto | PERFORMANCE |
+| 🟠 **MID** | Older SD / mid Mali | 450 K px | 30 | System | COMPATIBILITY |
+| 🔴 **LOW** | Budget / unknown | 340 K px | 30 | System | COMPATIBILITY |
 
-# Credits and Third-party apps
+> Example: **Galaxy A36 5G** (SM6475 · Adreno 710 · 60 Hz) → 🟡 UPPER-MID →
+> `1174×542` at exactly 19.5:9 fullscreen, System driver (Turnip SIGSEGVs on
+> this SoC), Box64 PERFORMANCE, 4 big cores.
 
-  - **Original Winlator** by [brunodev85](https://github.com/brunodev85/winlator)
-  - **Original Winlator Bionic** by [Pipetto-crypto](https://github.com/Pipetto-crypto/winlator)
-  - **Winlator (coffincolors fork)** by [coffincolors](https://github.com/coffincolors/winlator)
-  - Ubuntu RootFs (Bionic Beaver): [releases.ubuntu.com/bionic](https://www.google.com/search?q=https://releases.ubuntu.com/bionic)
-  - Wine: [winehq.org](https://www.winehq.org/)
-  - Box86/Box64 by [ptitseb](https://github.com/ptitSeb)
-  - FEX-Emu by [FEX-Emu](https://github.com/FEX-Emu/FEX)
-  - PRoot: [proot-me.github.io](https://proot-me.github.io)
-  - Mesa (Turnip/Zink/VirGL): [mesa3d.org](https://www.mesa3d.org)
-  - DXVK: [github.com/doitsujin/dxvk](https://github.com/doitsujin/dxvk)
-  - VKD3D: [gitlab.winehq.org/wine/vkd3d](https://gitlab.winehq.org/wine/vkd3d)
-  - D8VK: [github.com/AlpyneDreams/d8vk](https://github.com/AlpyneDreams/d8vk)
-  - CNC DDraw: [github.com/FunkyFr3sh/cnc-ddraw](https://github.com/FunkyFr3sh/cnc-ddraw)
-[ptitseb](https://github.com/ptitSeb) (Box86/Box64), [Danylo](https://blogs.igalia.com/dpiliaiev/tags/mesa/) (Turnip), [alexvorxx](https://github.com/alexvorxx) (Mods/Tips) and others.
+---
 
+## 🧩 Mod Support
 
+Open the <kbd>Mods</kbd> button on the launcher:
 
+- **Import** your own `.dll` mods from device storage (multi-select)
+- Installed mods are listed; removal is one tap
+- The bundled **MegabonkTweaks** is shown as built-in and protected
+- Mods land in the game's `Mods/` directory and load on next launch
 
+On-device, the loader boots like this:
 
+```text
+[Il2CppAssemblyGenerator] Assembly is up to date. No Generation Needed.
+Loading Mods from 'D:\Megabonk\Mods'...
+Melon Assembly loaded: '.\Mods\MegabonkTweaks.dll'
+1 Mod loaded.
+```
 
+<details>
+<summary><b>🔬 Why mods don't work out of the box (and the four fixes)</b></summary>
 
+1. **Wine's builtin `version.dll` shadows the proxy** → `native,builtin`
+   registry DllOverride for the doorstop proxy
+2. **No .NET runtime in the guest** → portable .NET 6 runtime shipped as an
+   APK asset, extracted to `<game>/dotnet/`
+3. **MelonLoader 0.7.3's native bootstrap demands a 274 GB memory
+   reservation** → instant crash under Wine/Box64 → downgraded to the
+   Wine-compatible **0.6.6** line
+4. **Cpp2IL.exe GC heap init fails (`0x8007000E`)** → forced Workstation GC
+   via `COMPLUS_gcServer=0` — plus **PC-pre-generated interop assemblies**
+   so the phone never generates anything at all
 
+Full details, tool versions, and the uppercase-SHA-512 gotcha in
+[**WHATS-NEW.md**](WHATS-NEW.md).
+
+</details>
+
+---
+
+## ⚡ Performance Engineering
+
+- **Dynarec cache persistence** — `BOX64_DYNAREC_SAVEFILE` points into app
+  storage; translated code blocks survive across launches
+- **boot.config optimization** — `gfx-enable-gfx-jobs 1 → 0` with a pristine
+  backup (`boot.config.mobilebonk_orig`); toggle in settings
+- **Measured workflow** — `tools/benchmark.sh` + `tools/analyze_frames.py`
+  produce FPS, p50/p95/p99, 1%/0.1% lows, and thermal stats from
+  SurfaceFlinger latency data
+
+```bash
+tools/benchmark.sh 30        # capture 30 s of frames on-device
+python3 tools/analyze_frames.py tools/reports/<report>.txt
+```
+
+---
+
+## 📁 Repository Layout
+
+```
+app/src/main/java/com/winlator/cmod/megabonk/
+├── MegabonkSetup.java            # Container / shortcut / optimizer orchestration
+├── MegabonkGameOptimizer.java    # VC++ runtime, MelonLoader, pregen interop, boot.config
+├── DeviceProfileDetector.java    # Hardware tier detection + resolution budgets
+├── MegabonkModsFragment.java     # Mods manager UI
+└── MegabonkSettingsFragment.java # Game settings UI
+melonloader-mod/                   # MegabonkTweaks mod source (C#, net6.0)
+tools/                             # Benchmark harness (bash + Python)
+app/src/main/assets/               # MelonLoader, portable .NET, pregen interop, VC++ runtime
+```
+
+---
+
+## 🔧 Building
+
+Requirements: **Android Studio** (SDK 34 + NDK) and **Java 17**.
+
+```bash
+./gradlew :app:assembleRelease
+```
+
+> [!WARNING]
+> The game directory `app/src/main/assets/game/` is intentionally absent and
+> git-ignored — the APK must never ship game content. To rebuild the mod DLL:
+> `cd melonloader-mod && dotnet build -c Release` (toolchain versions in
+> [WHATS-NEW.md](WHATS-NEW.md)).
+
+---
+
+## ⚠️ Legal Notice
+
+> [!IMPORTANT]
+> **You must legally own MegaBonk to use this project.**
+>
+> - This repository **does not contain, and never distributes**, any MegaBonk game files
+> - The bundled MelonLoader is Apache-2.0 · the portable .NET runtime is MIT ·
+>   the VC++ runtime is Microsoft's freely redistributable installer content
+> - Do not use this project to obtain MegaBonk without purchasing it
+> - Please support the original developer, **Vedinad**
+
+---
+
+## 🙏 Credits
+
+| Project | Role |
+|---|---|
+| [Winlator Bionic](https://github.com/Pipetto-crypto/winlator) → [Ludashi 3.0](https://github.com/StevenMXZ/Winlator-Ludashi) | Base fork |
+| [MelonLoader](https://github.com/LavaGang/MelonLoader) | Mod loader (Apache-2.0) |
+| [Box64](https://github.com/ptitSeb/box64) · [Wine](https://www.winehq.org/) · [DXVK](https://github.com/doitsujin/dxvk) | Emulation stack |
+| [MegaBonk](https://store.steampowered.com/app/3229250/Megabonk/) by Vedinad | The game |
+
+---
+
+<div align="center">
+
+**MegaBonk Mobile Port** — built by the community, for the community.
+
+*Not affiliated with or endorsed by Vedinad.*
+
+</div>
